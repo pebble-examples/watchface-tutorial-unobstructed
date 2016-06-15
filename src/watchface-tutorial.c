@@ -24,9 +24,9 @@ uint8_t relative_pixel(uint8_t percent, uint8_t max) {
 static void update_ui(void) {
   // Adapt the layout based on any obstructions
   GRect full_bounds = layer_get_bounds(window_layer);
-  GRect visible_bounds = layer_get_unobstructed_bounds(window_layer);
+  GRect unobstructed_bounds = layer_get_unobstructed_bounds(window_layer);
 
-  if (!grect_equal(&full_bounds, &visible_bounds)) {
+  if (!grect_equal(&full_bounds, &unobstructed_bounds)) {
     // Screen is obstructed
     layer_set_hidden(bitmap_layer_get_layer(s_background_layer), true);
     text_layer_set_text_color(s_time_layer, GColorWhite);
@@ -37,11 +37,11 @@ static void update_ui(void) {
   }
 
   GRect time_frame = layer_get_frame(text_layer_get_layer(s_time_layer));
-  time_frame.origin.y = relative_pixel(s_time_offset_top_percent, visible_bounds.size.h);
+  time_frame.origin.y = relative_pixel(s_time_offset_top_percent, unobstructed_bounds.size.h);
   layer_set_frame(text_layer_get_layer(s_time_layer), time_frame);
 
   GRect weather_frame = layer_get_frame(text_layer_get_layer(s_weather_layer));
-  weather_frame.origin.y = relative_pixel(s_weather_offset_top_percent, visible_bounds.size.h);
+  weather_frame.origin.y = relative_pixel(s_weather_offset_top_percent, unobstructed_bounds.size.h);
   layer_set_frame(text_layer_get_layer(s_weather_layer), weather_frame);
 }
 
