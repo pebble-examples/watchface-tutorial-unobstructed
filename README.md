@@ -1,6 +1,8 @@
 # watchface-tutorial-unobstructed
 
-An example of the UnobstructedArea API
+An example of the UnobstructedArea API.
+
+Requires SDK4.
 
 ## Guide
 
